@@ -1,0 +1,11 @@
+#Any vs stuff
+.vs/
+
+#node stuff
+node_modules/
+
+#npm stuff
+npm-debug.log
+
+#app dist stuff
+dist/
