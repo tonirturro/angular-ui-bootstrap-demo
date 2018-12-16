@@ -9,4 +9,5 @@ require('angular-mocks/ngAnimateMock');
 require('../src/accordion/test/accordion.spec');
 require('../src/alert/test/alert.spec');
 require('../src/buttons/test/buttons.spec');
+require('../src/carousel/test/carousel.spec');
 require('../src/modal/test/modal.spec');

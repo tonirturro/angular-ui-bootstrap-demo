@@ -1,7 +1,7 @@
 describe('carousel', function() {
-  beforeEach(module('ui.bootstrap.carousel'));
-  beforeEach(module('ngAnimateMock'));
-  beforeEach(module('uib/template/carousel/carousel.html', 'uib/template/carousel/slide.html'));
+  beforeEach(angular.mock.module('ui.bootstrap.carousel'));
+  beforeEach(angular.mock.module('ngAnimateMock'));
+  beforeEach(angular.mock.module('uib/template/carousel/carousel.html', 'uib/template/carousel/slide.html'));
 
   var $rootScope, $compile, $controller, $interval, $templateCache, $timeout, $animate;
   beforeEach(inject(function(_$rootScope_, _$compile_, _$controller_, _$interval_, _$templateCache_, _$timeout_, _$animate_) {

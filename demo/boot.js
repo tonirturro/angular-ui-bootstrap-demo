@@ -7,6 +7,7 @@ require('bootstrap/dist/css/bootstrap.css');
 var ACCORDION = require('../src/accordion');
 var ALERT = require('../src/alert');
 var BUTTONS = require('../src/buttons');
+var CAROUSEL = require('../src/carousel');
 var MODAL = require('../src/modal');
 
 var module = angular.module('ui.bootstrap.demo', [ 
@@ -15,12 +16,14 @@ var module = angular.module('ui.bootstrap.demo', [
     ACCORDION,
     ALERT,
     BUTTONS,
+    CAROUSEL,
     MODAL
  ]);
 
 require('../src/accordion/docs/demo');
 require('../src/alert/docs/demo');
 require('../src/buttons/docs/demo');
+require('../src/carousel/docs/demo');
 require('../src/modal/docs/demo');
 require('./main');
 
@@ -39,6 +42,9 @@ module.config(function($routeProvider) {
         .when('/buttons', {
             templateUrl: 'buttons'
         })
+        .when('/carousel', {
+            templateUrl: 'carousel'
+        })
        .when('/modal', {
             templateUrl: 'modal'
         });
@@ -49,5 +55,6 @@ module.run(["$templateCache", function($templateCache) {
     $templateCache.put('accordion', require('../src/accordion/docs/demo.html'));
     $templateCache.put('alert', require('../src/alert/docs/demo.html'));
     $templateCache.put('buttons', require('../src/buttons/docs/demo.html'));
+    $templateCache.put('carousel', require('../src/carousel/docs/demo.html'));
     $templateCache.put('modal', require('../src/modal/docs/demo.html'));
 }]);
