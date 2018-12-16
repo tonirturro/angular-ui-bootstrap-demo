@@ -7,4 +7,5 @@ require('angular-mocks/ngAnimateMock');
 
 // Load the tests
 require('../src/accordion/test/accordion.spec');
+require('../src/alert/test/alert.spec');
 require('../src/modal/test/modal.spec');

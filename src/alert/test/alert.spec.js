@@ -1,8 +1,8 @@
 describe('uib-alert', function() {
   var element, scope, $compile, $templateCache, $timeout;
 
-  beforeEach(module('ui.bootstrap.alert'));
-  beforeEach(module('uib/template/alert/alert.html'));
+  beforeEach(angular.mock.module('ui.bootstrap.alert'));
+  beforeEach(angular.mock.module('uib/template/alert/alert.html'));
 
   beforeEach(inject(function($rootScope, _$compile_, _$templateCache_, _$timeout_) {
     scope = $rootScope;
@@ -81,7 +81,7 @@ describe('uib-alert', function() {
 
     for (var i = 0, n = alerts.length; i < n; i++) {
       expect(findCloseButton(i).css('display')).not.toBe('none');
-      expect(alerts.eq(i)).toHaveClass('alert-dismissible');
+      expect(alerts.get(i)).toHaveClass('alert-dismissible');
     }
   });
 
@@ -102,7 +102,7 @@ describe('uib-alert', function() {
     element = $compile('<div uib-alert>No close</div>')(scope);
     scope.$digest();
     expect(findCloseButton(0)).toBeHidden();
-    expect(element).not.toHaveClass('alert-dismissible');
+    expect(element.get(0)).not.toHaveClass('alert-dismissible');
   });
 
   it('should close automatically if dismiss-on-timeout is defined on the element', function() {
