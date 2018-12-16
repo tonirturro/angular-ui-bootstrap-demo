@@ -9,3 +9,6 @@ npm-debug.log
 
 #app dist stuff
 dist/
+
+#no lock
+package-lock.json
