@@ -6,6 +6,6 @@ const karmaConfig = path.resolve(__dirname, 'test/karma.conf.js');
 gulp.task('test', (done) => {
     new KarmaServer({
         configFile: karmaConfig,
-        singleRun: false
+        singleRun: true
     }, done).start();
 });
