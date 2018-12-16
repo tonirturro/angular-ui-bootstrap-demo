@@ -1,8 +1,8 @@
 describe('collapse directive', function() {
   var element, compileFn, scope, $compile, $animate, $q;
 
-  beforeEach(module('ui.bootstrap.collapse'));
-  beforeEach(module('ngAnimateMock'));
+  beforeEach(angular.mock.module('ui.bootstrap.collapse'));
+  beforeEach(angular.mock.module('ngAnimateMock'));
   beforeEach(inject(function(_$rootScope_, _$compile_, _$animate_, _$q_) {
     scope = _$rootScope_;
     $compile = _$compile_;
