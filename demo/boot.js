@@ -9,6 +9,8 @@ var ALERT = require('../src/alert');
 var BUTTONS = require('../src/buttons');
 var CAROUSEL = require('../src/carousel');
 var COLLAPSE = require('../src/collapse');
+var DATEPICKER = require('../src/datepicker');
+var DATEPARSER = require('../src/dateparser');
 var MODAL = require('../src/modal');
 
 var module = angular.module('ui.bootstrap.demo', [ 
@@ -19,6 +21,8 @@ var module = angular.module('ui.bootstrap.demo', [
     BUTTONS,
     CAROUSEL,
     COLLAPSE,
+    DATEPICKER,
+    DATEPARSER,
     MODAL
  ]).filter('capitalize', function() {
     return function(input) {
@@ -31,6 +35,8 @@ require('../src/alert/docs/demo');
 require('../src/buttons/docs/demo');
 require('../src/carousel/docs/demo');
 require('../src/collapse/docs/demo');
+require('../src/dateparser/docs/demo');
+require('../src/datepicker/docs/demo');
 require('../src/modal/docs/demo');
 require('./main');
 
@@ -55,6 +61,12 @@ module.config(function($routeProvider) {
         .when('/collapse', {
             templateUrl: 'collapse'
         })
+        .when('/dateparser', {
+            templateUrl: 'dateparser'
+        })
+        .when('/datepicker', {
+            templateUrl: 'datepicker'
+        })
         .when('/modal', {
             templateUrl: 'modal'
         })
@@ -70,5 +82,7 @@ module.run(["$templateCache", function($templateCache) {
     $templateCache.put('buttons', require('../src/buttons/docs/demo.html'));
     $templateCache.put('carousel', require('../src/carousel/docs/demo.html'));
     $templateCache.put('collapse', require('../src/collapse/docs/demo.html'));
+    $templateCache.put('dateparser', require('../src/dateparser/docs/demo.html'));
+    $templateCache.put('datepicker', require('../src/datepicker/docs/demo.html'));
     $templateCache.put('modal', require('../src/modal/docs/demo.html'));
 }]);

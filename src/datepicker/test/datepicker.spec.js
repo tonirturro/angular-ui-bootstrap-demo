@@ -1,11 +1,11 @@
 describe('datepicker', function() {
   var $rootScope, $compile, $templateCache, element;
-  beforeEach(module('ui.bootstrap.datepicker'));
-  beforeEach(module('uib/template/datepicker/datepicker.html'));
-  beforeEach(module('uib/template/datepicker/day.html'));
-  beforeEach(module('uib/template/datepicker/month.html'));
-  beforeEach(module('uib/template/datepicker/year.html'));
-  beforeEach(module(function($compileProvider) {
+  beforeEach(angular.mock.module('ui.bootstrap.datepicker'));
+  beforeEach(angular.mock.module('uib/template/datepicker/datepicker.html'));
+  beforeEach(angular.mock.module('uib/template/datepicker/day.html'));
+  beforeEach(angular.mock.module('uib/template/datepicker/month.html'));
+  beforeEach(angular.mock.module('uib/template/datepicker/year.html'));
+  beforeEach(angular.mock.module(function($compileProvider) {
     $compileProvider.directive('dateModel', function() {
       return {
         restrict: 'A',
@@ -166,7 +166,7 @@ describe('datepicker', function() {
     });
 
     it('should suppress warning when using literals for min date', function() {
-      module(function($provide) {
+      angular.mock.module(function($provide) {
         $provide.value('$datepickerLiteralWarning', false);
       });
       inject(function(_$log_, _$rootScope_, _$compile_) {
@@ -203,7 +203,7 @@ describe('datepicker', function() {
     });
 
     it('should suppress warning when using literals for max date', function() {
-      module(function($provide) {
+      angular.mock.module(function($provide) {
         $provide.value('$datepickerLiteralWarning', false);
       });
       inject(function(_$log_, _$rootScope_, _$compile_) {
@@ -246,7 +246,7 @@ describe('datepicker', function() {
     });
 
     it('should not suppress log error message for ng-model date error when false', function() {
-      module(function($provide) {
+      angular.mock.module(function($provide) {
         $provide.value('$datepickerSuppressError', false);
       });
 
@@ -267,7 +267,7 @@ describe('datepicker', function() {
     });
 
     it('should suppress log error message for ng-model date error when true', function() {
-      module(function($provide) {
+      angular.mock.module(function($provide) {
         $provide.value('$datepickerSuppressError', true);
       });
 
@@ -936,7 +936,7 @@ describe('datepicker', function() {
         describe('`aria-activedescendant`', function() {
           function checkActivedescendant() {
             var activeId = element.find('table').attr('aria-activedescendant');
-            expect(element.find('#' + activeId + ' > button')).toHaveClass('active');
+            expect(element.find('#' + activeId + ' > button').get(0)).toHaveClass('active');
           }
 
           it('updates correctly', function() {

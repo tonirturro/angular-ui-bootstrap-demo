@@ -1,7 +1,7 @@
 describe('date parser', function() {
   var dateParser, oldDate;
 
-  beforeEach(module('ui.bootstrap.dateparser'));
+  beforeEach(angular.mock.module('ui.bootstrap.dateparser'));
   beforeEach(inject(function (uibDateParser) {
     dateParser = uibDateParser;
     oldDate = new Date(1, 2, 6);
