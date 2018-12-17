@@ -25,6 +25,19 @@ describe('uib-alert', function() {
     ];
   }));
 
+  beforeEach(function() {
+    jasmine.addMatchers({
+      toBeHidden: function () {
+        return {
+          compare: function (actual) {
+            return { pass: $(actual).is(':hidden') }
+          }
+        }
+      }
+    });
+  });
+
+
   function createAlerts() {
     $compile(element)(scope);
     scope.$digest();
