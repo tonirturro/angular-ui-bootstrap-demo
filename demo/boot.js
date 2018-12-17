@@ -20,7 +20,11 @@ var module = angular.module('ui.bootstrap.demo', [
     CAROUSEL,
     COLLAPSE,
     MODAL
- ]);
+ ]).filter('capitalize', function() {
+    return function(input) {
+      return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+    }
+});;
 
 require('../src/accordion/docs/demo');
 require('../src/alert/docs/demo');
@@ -33,7 +37,7 @@ require('./main');
 
 module.config(function($routeProvider) {
     $routeProvider
-        .when('/', {
+        .when('/basic', {
             templateUrl: 'basic'
         })
         .when('/accordion', {
@@ -51,8 +55,11 @@ module.config(function($routeProvider) {
         .when('/collapse', {
             templateUrl: 'collapse'
         })
-       .when('/modal', {
+        .when('/modal', {
             templateUrl: 'modal'
+        })
+        .otherwise({
+            redirectTo : '/basic'
         });
 });
 
