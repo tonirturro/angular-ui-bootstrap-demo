@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "gulp test",
+    "unit": "gulp unit",
     "start": "webpack-dev-server --open --config webpack/webpack.config.js --progress --colors"
   },
   "keywords": [

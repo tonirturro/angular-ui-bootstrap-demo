@@ -9,3 +9,10 @@ gulp.task('test', (done) => {
         singleRun: true
     }, done).start();
 });
+
+gulp.task('unit', (done) => {
+    new KarmaServer({
+        configFile: karmaConfig,
+        singleRun: false
+    }, done).start();
+});
