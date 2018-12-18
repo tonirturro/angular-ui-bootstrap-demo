@@ -125,9 +125,13 @@ angular.module('ui.bootstrap.modal', ['ui.bootstrap.multiMap', 'ui.bootstrap.sta
 
             scope.$on($modalStack.NOW_CLOSING_EVENT, function(e, setIsAsync) {
               var done = setIsAsync();
-              $animateCss(element, {
+              var animation = $animateCss(element, {
                 removeClass: attrs.modalInClass
-              }).start().then(done);
+              });
+              
+              animation.start().then(function() {
+                done();
+              });
             });
           }
 
