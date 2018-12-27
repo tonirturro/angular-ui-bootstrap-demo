@@ -11,6 +11,7 @@ var CAROUSEL = require('../src/carousel');
 var COLLAPSE = require('../src/collapse');
 var DATEPICKER = require('../src/datepicker');
 var DATEPARSER = require('../src/dateparser');
+var DATEPICKERPOPUP = require('../src/datepickerPopup');
 var MODAL = require('../src/modal');
 
 var module = angular.module('ui.bootstrap.demo', [ 
@@ -23,6 +24,7 @@ var module = angular.module('ui.bootstrap.demo', [
     COLLAPSE,
     DATEPICKER,
     DATEPARSER,
+    DATEPICKERPOPUP,
     MODAL
  ]).filter('capitalize', function() {
     return function(input) {
@@ -37,6 +39,7 @@ require('../src/carousel/docs/demo');
 require('../src/collapse/docs/demo');
 require('../src/dateparser/docs/demo');
 require('../src/datepicker/docs/demo');
+require('../src/datepickerPopup/docs/demo');
 require('../src/modal/docs/demo');
 require('./main');
 
@@ -67,6 +70,9 @@ module.config(function($routeProvider) {
         .when('/datepicker', {
             templateUrl: 'datepicker'
         })
+        .when('/datepickerpopup', {
+            templateUrl: 'datepickerpopup'
+        })
         .when('/modal', {
             templateUrl: 'modal'
         })
@@ -84,5 +90,6 @@ module.run(["$templateCache", function($templateCache) {
     $templateCache.put('collapse', require('../src/collapse/docs/demo.html'));
     $templateCache.put('dateparser', require('../src/dateparser/docs/demo.html'));
     $templateCache.put('datepicker', require('../src/datepicker/docs/demo.html'));
+    $templateCache.put('datepickerpopup', require('../src/datepickerPopup/docs/demo.html'))
     $templateCache.put('modal', require('../src/modal/docs/demo.html'));
 }]);
