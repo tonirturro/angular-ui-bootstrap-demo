@@ -3,7 +3,7 @@ require('jquery');
 var angular = require('angular');
 require('angular-animate');
 require('angular-route');
-require('bootstrap/dist/css/bootstrap.css');
+require('../stylesheets/_bootstrap.scss');
 var ACCORDION = require('../src/accordion');
 var ALERT = require('../src/alert');
 var BUTTONS = require('../src/buttons');
