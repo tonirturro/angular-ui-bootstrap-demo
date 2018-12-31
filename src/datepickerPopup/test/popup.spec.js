@@ -961,6 +961,9 @@ describe('datepicker popup', function() {
   });
 
   describe('european format', function() {
+    beforeEach(inject(function(_$sniffer_) {
+      $sniffer = _$sniffer_;
+    }));
     it('dd.MM.yyyy', function() {
       var wrapElement = $compile('<div><input ng-model="date" uib-datepicker-popup="dd.MM.yyyy"><div>')($rootScope);
       $rootScope.$digest();
@@ -1361,6 +1364,11 @@ describe('datepicker popup', function() {
   });
 
   describe('with datepicker-template-url', function() {
+
+    beforeEach(inject(function(_$document_) {
+      $document = _$document_;
+    }));
+
     beforeEach(function() {
       $rootScope.date = new Date();
     });
@@ -1384,6 +1392,11 @@ describe('datepicker popup', function() {
   });
 
   describe('with an append-to-body attribute', function() {
+
+    beforeEach(inject(function(_$document_) {
+      $document = _$document_;
+    }));
+
     beforeEach(function() {
       $rootScope.date = new Date();
     });
@@ -1493,7 +1506,8 @@ describe('datepicker popup', function() {
   describe('altInputFormats', function() {
     describe('datepickerPopupConfig.altInputFormats', function() {
       var originalConfig = {};
-      beforeEach(inject(function(uibDatepickerPopupConfig) {
+      beforeEach(inject(function(uibDatepickerPopupConfig, _$sniffer_) {
+        $sniffer = _$sniffer_;
         $rootScope.date = new Date('November 9, 1980');
         angular.extend(originalConfig, uibDatepickerPopupConfig);
         uibDatepickerPopupConfig.datepickerPopup = 'MM-dd-yyyy';
@@ -1524,6 +1538,11 @@ describe('datepicker popup', function() {
     });
 
     describe('attribute `alt-input-formats`', function() {
+
+      beforeEach(inject(function(_$sniffer_) {
+        $sniffer = _$sniffer_
+      }));
+
       beforeEach(function() {
         $rootScope.date = new Date('November 9, 1980');
         var wrapElement = $compile('<div><input ng-model="date" uib-datepicker-popup="MMMM d yyyy" alt-input-formats="[\'M!/d!/yyyy\']" is-open="true"></div>')($rootScope);
