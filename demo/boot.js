@@ -14,6 +14,7 @@ var DATEPARSER = require('../src/dateparser');
 var DATEPICKERPOPUP = require('../src/datepickerPopup');
 var DROPDOWN = require('../src/dropdown');
 var MODAL = require('../src/modal');
+var PAGER = require('../src/pager');
 
 var module = angular.module('ui.bootstrap.demo', [ 
     'ngAnimate',
@@ -27,7 +28,8 @@ var module = angular.module('ui.bootstrap.demo', [
     DATEPARSER,
     DATEPICKERPOPUP,
     DROPDOWN,
-    MODAL
+    MODAL,
+    PAGER
  ]).filter('capitalize', function() {
     return function(input) {
       return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
@@ -44,6 +46,7 @@ require('../src/datepicker/docs/demo');
 require('../src/datepickerPopup/docs/demo');
 require('../src/dropdown/docs/demo');
 require('../src/modal/docs/demo');
+require('../src/pager/docs/demo');
 require('./main');
 
 
@@ -82,6 +85,9 @@ module.config(function($routeProvider) {
         .when('/modal', {
             templateUrl: 'modal'
         })
+        .when('/pager', {
+            templateUrl: 'pager'
+        })
         .otherwise({
             redirectTo : '/basic'
         });
@@ -99,4 +105,5 @@ module.run(["$templateCache", function($templateCache) {
     $templateCache.put('datepickerpopup', require('../src/datepickerPopup/docs/demo.html'));
     $templateCache.put('dropdown', require('../src/dropdown/docs/demo.html'));
     $templateCache.put('modal', require('../src/modal/docs/demo.html'));
+    $templateCache.put('pager', require('../src/pager/docs/demo.html'));
 }]);

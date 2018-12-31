@@ -1,7 +1,7 @@
 describe('pager directive', function() {
   var $compile, $rootScope, $document, $templateCache, body, element;
-  beforeEach(module('ui.bootstrap.pager'));
-  beforeEach(module('uib/template/pager/pager.html'));
+  beforeEach(angular.mock.module('ui.bootstrap.pager'));
+  beforeEach(angular.mock.module('uib/template/pager/pager.html'));
   beforeEach(inject(function(_$compile_, _$rootScope_, _$document_, _$templateCache_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;
@@ -13,6 +13,28 @@ describe('pager directive', function() {
     element = $compile('<ul uib-pager total-items="total" ng-model="currentPage"></ul>')($rootScope);
     $rootScope.$digest();
   }));
+
+  beforeEach(function() {
+    jasmine.addMatchers({
+      toHaveFocus: function() {
+        return {
+          compare: function(actual) {
+            var result = {
+              pass: document.activeElement === actual
+            };
+
+            if (result.pass) {
+              result.message = 'Expected \'' + angular.mock.dump(actual) + '\' not to have focus';
+            } else {
+              result.message = 'Expected \'' + angular.mock.dump(actual) + '\' to have focus';
+            }
+
+            return result;
+          }
+        }
+      },
+    });
+  });
 
   function getPaginationBarSize() {
     return element.find('li').length;
@@ -46,11 +68,11 @@ describe('pager directive', function() {
   });
 
   it('aligns previous & next page', function() {
-    expect(getPaginationEl(0)).toHaveClass('previous');
-    expect(getPaginationEl(0)).not.toHaveClass('next');
+    expect(getPaginationEl(0)[0]).toHaveClass('previous');
+    expect(getPaginationEl(0)[0]).not.toHaveClass('next');
 
-    expect(getPaginationEl(-1)).not.toHaveClass('previous');
-    expect(getPaginationEl(-1)).toHaveClass('next');
+    expect(getPaginationEl(-1)[0]).not.toHaveClass('previous');
+    expect(getPaginationEl(-1)[0]).toHaveClass('next');
   });
 
   it('exposes the controller on the template', function() {
@@ -70,12 +92,12 @@ describe('pager directive', function() {
 
   it('disables the "previous" link if current page is 1', function() {
     updateCurrentPage(1);
-    expect(getPaginationEl(0)).toHaveClass('disabled');
+    expect(getPaginationEl(0)[0]).toHaveClass('disabled');
   });
 
   it('disables the "next" link if current page is num-pages', function() {
     updateCurrentPage(5);
-    expect(getPaginationEl(-1)).toHaveClass('disabled');
+    expect(getPaginationEl(-1)[0]).toHaveClass('disabled');
   });
 
   it('changes currentPage if the "previous" link is clicked', function() {
@@ -123,10 +145,10 @@ describe('pager directive', function() {
     var linkEl = getPaginationLinkEl(element, -1);
 
     linkEl.focus();
-    expect(linkEl).toHaveFocus();
+    expect(linkEl[0]).toHaveFocus();
 
     linkEl.click();
-    expect(linkEl).not.toHaveFocus();
+    expect(linkEl[0]).not.toHaveFocus();
 
     element.remove();
   });
@@ -136,10 +158,10 @@ describe('pager directive', function() {
     var linkEl = getPaginationLinkEl(element, -1);
 
     linkEl.focus();
-    expect(linkEl).toHaveFocus();
+    expect(linkEl[0]).toHaveFocus();
 
     linkEl.click();
-    expect(linkEl).not.toHaveFocus();
+    expect(linkEl[0]).not.toHaveFocus();
 
     element.remove();
   });
@@ -172,18 +194,18 @@ describe('pager directive', function() {
 
       expect($rootScope.currentPage).toBe(2);
       expect(getPaginationBarSize()).toBe(2);
-      expect(getPaginationEl(0)).not.toHaveClass('disabled');
-      expect(getPaginationEl(-1)).toHaveClass('disabled');
+      expect(getPaginationEl(0)[0]).not.toHaveClass('disabled');
+      expect(getPaginationEl(-1)[0]).toHaveClass('disabled');
     });
   });
 
   describe('when `page` is not a number', function() {
     it('handles string', function() {
       updateCurrentPage('1');
-      expect(getPaginationEl(0)).toHaveClass('disabled');
+      expect(getPaginationEl(0)[0]).toHaveClass('disabled');
 
       updateCurrentPage('05');
-      expect(getPaginationEl(-1)).toHaveClass('disabled');
+      expect(getPaginationEl(-1)[0]).toHaveClass('disabled');
     });
   });
 
@@ -220,8 +242,8 @@ describe('pager directive', function() {
     });
 
     it('should not align previous & next page link', function() {
-      expect(getPaginationEl(0)).not.toHaveClass('previous');
-      expect(getPaginationEl(-1)).not.toHaveClass('next');
+      expect(getPaginationEl(0)[0]).not.toHaveClass('previous');
+      expect(getPaginationEl(-1)[0]).not.toHaveClass('next');
     });
   });
 
@@ -241,8 +263,8 @@ describe('pager directive', function() {
     });
 
     it('should not align previous & next page link', function() {
-      expect(getPaginationEl(0)).not.toHaveClass('previous');
-      expect(getPaginationEl(-1)).not.toHaveClass('next');
+      expect(getPaginationEl(0)[0]).not.toHaveClass('previous');
+      expect(getPaginationEl(-1)[0]).not.toHaveClass('next');
     });
 
     it('changes "previous" & "next" text from interpolated attributes', function() {
@@ -263,19 +285,19 @@ describe('pager directive', function() {
     $rootScope.$digest();
     updateCurrentPage(2);
 
-    expect(getPaginationEl(0)).toHaveClass('disabled');
-    expect(getPaginationEl(-1)).toHaveClass('disabled');
+    expect(getPaginationEl(0)[0]).toHaveClass('disabled');
+    expect(getPaginationEl(-1)[0]).toHaveClass('disabled');
 
     $rootScope.disable = false;
     $rootScope.$digest();
 
-    expect(getPaginationEl(0)).not.toHaveClass('disabled');
-    expect(getPaginationEl(-1)).not.toHaveClass('disabled');
+    expect(getPaginationEl(0)[0]).not.toHaveClass('disabled');
+    expect(getPaginationEl(-1)[0]).not.toHaveClass('disabled');
 
     $rootScope.disable = true;
     $rootScope.$digest();
 
-    expect(getPaginationEl(0)).toHaveClass('disabled');
-    expect(getPaginationEl(-1)).toHaveClass('disabled');
+    expect(getPaginationEl(0)[0]).toHaveClass('disabled');
+    expect(getPaginationEl(-1)[0]).toHaveClass('disabled');
   });
 });
