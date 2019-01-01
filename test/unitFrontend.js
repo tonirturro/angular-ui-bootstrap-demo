@@ -21,3 +21,4 @@ require('../src/pagination/test/pagination.spec');
 require('../src/popover/test/popover-html.spec');
 require('../src/popover/test/popover-template.spec');
 require('../src/popover/test/popover.spec');
+require('../src/position/test/position.spec');

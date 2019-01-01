@@ -11,7 +11,7 @@ describe('$uibPosition service', function () {
   var $document;
   var $uibPosition;
 
-  beforeEach(module('ui.bootstrap.position'));
+  beforeEach(angular.mock.module('ui.bootstrap.position'));
 
   beforeEach(inject(function(_$document_, _$uibPosition_) {
     $document = _$document_;
