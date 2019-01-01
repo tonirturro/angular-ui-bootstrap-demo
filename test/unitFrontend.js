@@ -17,3 +17,5 @@ require('../src/datepickerPopup/test/popup.spec');
 require('../src/dropdown/test/dropdown.spec');
 require('../src/modal/test/modal.spec');
 require('../src/pager/test/pager.spec');
+require('../src/pagination/test/pagination.spec');
+

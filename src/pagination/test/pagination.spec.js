@@ -1,7 +1,7 @@
 describe('pagination directive', function() {
   var $compile, $rootScope, $document, $templateCache, body, element;
-  beforeEach(module('ui.bootstrap.pagination'));
-  beforeEach(module('uib/template/pagination/pagination.html'));
+  beforeEach(angular.mock.module('ui.bootstrap.pagination'));
+  beforeEach(angular.mock.module('uib/template/pagination/pagination.html'));
   beforeEach(inject(function(_$compile_, _$rootScope_, _$document_, _$templateCache_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;
@@ -14,6 +14,28 @@ describe('pagination directive', function() {
     element = $compile('<ul uib-pagination total-items="total" ng-model="currentPage"></ul>')($rootScope);
     $rootScope.$digest();
   }));
+
+  beforeEach(function() {
+    jasmine.addMatchers({
+      toHaveFocus: function() {
+        return {
+          compare: function(actual) {
+            var result = {
+              pass: document.activeElement === actual
+            };
+
+            if (result.pass) {
+              result.message = 'Expected \'' + angular.mock.dump(actual) + '\' not to have focus';
+            } else {
+              result.message = 'Expected \'' + angular.mock.dump(actual) + '\' to have focus';
+            }
+
+            return result;
+          }
+        }
+      },
+    });
+  });
 
   function getPaginationBarSize() {
     return element.find('li').length;
@@ -157,9 +179,9 @@ describe('pagination directive', function() {
     $rootScope.$digest();
 
     expect(getPaginationBarSize()).toBe(3); // Previous, 1, Next
-    expect(getPaginationEl(0)).toHaveClass('disabled');
-    expect(getPaginationEl(1)).toHaveClass('active');
-    expect(getPaginationEl(2)).toHaveClass('disabled');
+    expect(getPaginationEl(0)[0]).toHaveClass('disabled');
+    expect(getPaginationEl(1)[0]).toHaveClass('active');
+    expect(getPaginationEl(2)[0]).toHaveClass('disabled');
   });
 
   it('does not "break" when `total-items` is negative', function() {
@@ -167,9 +189,9 @@ describe('pagination directive', function() {
     $rootScope.$digest();
 
     expect(getPaginationBarSize()).toBe(3); // Previous, 1, Next
-    expect(getPaginationEl(0)).toHaveClass('disabled');
-    expect(getPaginationEl(1)).toHaveClass('active');
-    expect(getPaginationEl(2)).toHaveClass('disabled');
+    expect(getPaginationEl(0)[0]).toHaveClass('disabled');
+    expect(getPaginationEl(1)[0]).toHaveClass('active');
+    expect(getPaginationEl(2)[0]).toHaveClass('disabled');
   });
 
   it('does not change the current page when `total-items` changes but is valid', function() {
@@ -185,10 +207,10 @@ describe('pagination directive', function() {
     var linkEl = getPaginationLinkEl(element, 2);
 
     linkEl.focus();
-    expect(linkEl).toHaveFocus();
+    expect(linkEl[0]).toHaveFocus();
 
     linkEl.click();
-    expect(linkEl).not.toHaveFocus();
+    expect(linkEl[0]).not.toHaveFocus();
 
     element.remove();
   });
@@ -198,10 +220,10 @@ describe('pagination directive', function() {
     var linkEl = getPaginationLinkEl(element, -1);
 
     linkEl.focus();
-    expect(linkEl).toHaveFocus();
+    expect(linkEl[0]).toHaveFocus();
 
     linkEl.click();
-    expect(linkEl).not.toHaveFocus();
+    expect(linkEl[0]).not.toHaveFocus();
 
     element.remove();
   });
@@ -211,10 +233,10 @@ describe('pagination directive', function() {
     var linkEl = getPaginationLinkEl(element, 0);
 
     linkEl.focus();
-    expect(linkEl).toHaveFocus();
+    expect(linkEl[0]).toHaveFocus();
 
     linkEl.click();
-    expect(linkEl).not.toHaveFocus();
+    expect(linkEl[0]).not.toHaveFocus();
 
     element.remove();
   });
@@ -278,15 +300,15 @@ describe('pagination directive', function() {
   describe('when `page` is not a number', function() {
     it('handles numerical string', function() {
       updateCurrentPage('2');
-      expect(getPaginationEl(2)).toHaveClass('active');
+      expect(getPaginationEl(2)[0]).toHaveClass('active');
 
       updateCurrentPage('04');
-      expect(getPaginationEl(4)).toHaveClass('active');
+      expect(getPaginationEl(4)[0]).toHaveClass('active');
     });
 
     it('defaults to 1 if non-numeric', function() {
       updateCurrentPage('pizza');
-      expect(getPaginationEl(1)).toHaveClass('active');
+      expect(getPaginationEl(1)[0]).toHaveClass('active');
     });
   });
 
@@ -307,10 +329,10 @@ describe('pagination directive', function() {
 
     it('shows the page number even if it can\'t be shown in the middle', function() {
       updateCurrentPage(1);
-      expect(getPaginationEl(1)).toHaveClass('active');
+      expect(getPaginationEl(1)[0]).toHaveClass('active');
 
       updateCurrentPage(10);
-      expect(getPaginationEl(-2)).toHaveClass('active');
+      expect(getPaginationEl(-2)[0]).toHaveClass('active');
     });
 
     it('shows the page number in middle after the next link is clicked', function() {
@@ -318,7 +340,7 @@ describe('pagination directive', function() {
       clickPaginationEl(-1);
 
       expect($rootScope.currentPage).toBe(7);
-      expect(getPaginationEl(3)).toHaveClass('active');
+      expect(getPaginationEl(3)[0]).toHaveClass('active');
       expect(getPaginationEl(3).text()).toBe(''+$rootScope.currentPage);
     });
 
@@ -327,7 +349,7 @@ describe('pagination directive', function() {
       clickPaginationEl(0);
 
       expect($rootScope.currentPage).toBe(6);
-      expect(getPaginationEl(3)).toHaveClass('active');
+      expect(getPaginationEl(3)[0]).toHaveClass('active');
       expect(getPaginationEl(3).text()).toBe(''+$rootScope.currentPage);
     });
 
@@ -362,10 +384,10 @@ describe('pagination directive', function() {
       var linkEl = getPaginationLinkEl(element, 4);
 
       linkEl.focus();
-      expect(linkEl).toHaveFocus();
+      expect(linkEl[0]).toHaveFocus();
 
       linkEl.click();
-      expect(linkEl).not.toHaveFocus();
+      expect(linkEl[0]).not.toHaveFocus();
 
       element.remove();
     });
@@ -392,7 +414,7 @@ describe('pagination directive', function() {
       clickPaginationEl(-1);
 
       expect($rootScope.currentPage).toBe(7);
-      expect(getPaginationEl(4)).toHaveClass('active');
+      expect(getPaginationEl(4)[0]).toHaveClass('active');
       expect(getPaginationEl(4).text()).toBe(''+$rootScope.currentPage);
     });
 
@@ -401,7 +423,7 @@ describe('pagination directive', function() {
       clickPaginationEl(0);
 
       expect($rootScope.currentPage).toBe(6);
-      expect(getPaginationEl(4)).toHaveClass('active');
+      expect(getPaginationEl(4)[0]).toHaveClass('active');
       expect(getPaginationEl(4).text()).toBe(''+$rootScope.currentPage);
     });
 
@@ -455,7 +477,7 @@ describe('pagination directive', function() {
       clickPaginationEl(-1);
 
       expect($rootScope.currentPage).toBe(7);
-      expect(getPaginationEl(5)).toHaveClass('active');
+      expect(getPaginationEl(5)[0]).toHaveClass('active');
       expect(getPaginationEl(5).text()).toBe(''+$rootScope.currentPage);
     });
 
@@ -464,7 +486,7 @@ describe('pagination directive', function() {
       clickPaginationEl(0);
 
       expect($rootScope.currentPage).toBe(6);
-      expect(getPaginationEl(5)).toHaveClass('active');
+      expect(getPaginationEl(5)[0]).toHaveClass('active');
       expect(getPaginationEl(5).text()).toBe(''+$rootScope.currentPage);
     });
 
@@ -566,7 +588,7 @@ describe('pagination directive', function() {
       clickPaginationEl(1);
 
       expect($rootScope.currentPage).toBe(5);
-      expect(getPaginationEl(-3)).toHaveClass('active');
+      expect(getPaginationEl(-3)[0]).toHaveClass('active');
     });
 
     it('moves to the next set when last ellipsis is clicked', function() {
@@ -575,7 +597,7 @@ describe('pagination directive', function() {
       clickPaginationEl(-2);
 
       expect($rootScope.currentPage).toBe(11);
-      expect(getPaginationEl(2)).toHaveClass('active');
+      expect(getPaginationEl(2)[0]).toHaveClass('active');
     });
 
     it('should not display page numbers, if max-size is zero', function() {
@@ -611,15 +633,15 @@ describe('pagination directive', function() {
     it('disables the "first" & "previous" link if current page is 1', function() {
       updateCurrentPage(1);
 
-      expect(getPaginationEl(0)).toHaveClass('disabled');
-      expect(getPaginationEl(1)).toHaveClass('disabled');
+      expect(getPaginationEl(0)[0]).toHaveClass('disabled');
+      expect(getPaginationEl(1)[0]).toHaveClass('disabled');
     });
 
     it('disables the "last" & "next" link if current page is num-pages', function() {
       updateCurrentPage(5);
 
-      expect(getPaginationEl(-2)).toHaveClass('disabled');
-      expect(getPaginationEl(-1)).toHaveClass('disabled');
+      expect(getPaginationEl(-2)[0]).toHaveClass('disabled');
+      expect(getPaginationEl(-1)[0]).toHaveClass('disabled');
     });
 
     it('changes currentPage if the "first" link is clicked', function() {
@@ -685,10 +707,10 @@ describe('pagination directive', function() {
       var linkEl = getPaginationLinkEl(element, 0);
 
       linkEl.focus();
-      expect(linkEl).toHaveFocus();
+      expect(linkEl[0]).toHaveFocus();
 
       linkEl.click();
-      expect(linkEl).not.toHaveFocus();
+      expect(linkEl[0]).not.toHaveFocus();
 
       element.remove();
     });
@@ -698,10 +720,10 @@ describe('pagination directive', function() {
       var linkEl = getPaginationLinkEl(element, -1);
 
       linkEl.focus();
-      expect(linkEl).toHaveFocus();
+      expect(linkEl[0]).toHaveFocus();
 
       linkEl.click();
-      expect(linkEl).not.toHaveFocus();
+      expect(linkEl[0]).not.toHaveFocus();
 
       element.remove();
     });
@@ -726,21 +748,21 @@ describe('pagination directive', function() {
     });
 
     it('sets the current page to be active', function() {
-      expect(getPaginationEl(2)).toHaveClass('active');
+      expect(getPaginationEl(2)[0]).toHaveClass('active');
     });
 
     it('does not disable the "1" link if current page is 1', function() {
       updateCurrentPage(1);
 
-      expect(getPaginationEl(0)).not.toHaveClass('disabled');
-      expect(getPaginationEl(0)).toHaveClass('active');
+      expect(getPaginationEl(0)[0]).not.toHaveClass('disabled');
+      expect(getPaginationEl(0)[0]).toHaveClass('active');
     });
 
     it('does not disable the "last" link if current page is last page', function() {
       updateCurrentPage(5);
 
-      expect(getPaginationEl(-1)).not.toHaveClass('disabled');
-      expect(getPaginationEl(-1)).toHaveClass('active');
+      expect(getPaginationEl(-1)[0]).not.toHaveClass('disabled');
+      expect(getPaginationEl(-1)[0]).toHaveClass('active');
     });
 
     it('changes currentPage if a page link is clicked', function() {
@@ -776,17 +798,17 @@ describe('pagination directive', function() {
     it('disables the "first" & activates "1" link if current page is 1', function() {
       updateCurrentPage(1);
 
-      expect(getPaginationEl(0)).toHaveClass('disabled');
-      expect(getPaginationEl(1)).not.toHaveClass('disabled');
-      expect(getPaginationEl(1)).toHaveClass('active');
+      expect(getPaginationEl(0)[0]).toHaveClass('disabled');
+      expect(getPaginationEl(1)[0]).not.toHaveClass('disabled');
+      expect(getPaginationEl(1)[0]).toHaveClass('active');
     });
 
     it('disables the "last" & "next" link if current page is num-pages', function() {
       updateCurrentPage(5);
 
-      expect(getPaginationEl(-2)).toHaveClass('active');
-      expect(getPaginationEl(-2)).not.toHaveClass('disabled');
-      expect(getPaginationEl(-1)).toHaveClass('disabled');
+      expect(getPaginationEl(-2)[0]).toHaveClass('active');
+      expect(getPaginationEl(-2)[0]).not.toHaveClass('disabled');
+      expect(getPaginationEl(-1)[0]).toHaveClass('disabled');
     });
   });
 
@@ -940,8 +962,8 @@ describe('pagination directive', function() {
 
 describe('pagination directive', function() {
   var $compile, $rootScope, element;
-  beforeEach(module('ui.bootstrap.pagination'));
-  beforeEach(module('uib/template/pagination/pagination.html'));
+  beforeEach(angular.mock.module('ui.bootstrap.pagination'));
+  beforeEach(angular.mock.module('uib/template/pagination/pagination.html'));
   beforeEach(inject(function(_$compile_, _$rootScope_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;
