@@ -18,4 +18,6 @@ require('../src/dropdown/test/dropdown.spec');
 require('../src/modal/test/modal.spec');
 require('../src/pager/test/pager.spec');
 require('../src/pagination/test/pagination.spec');
-
+require('../src/popover/test/popover-html.spec');
+require('../src/popover/test/popover-template.spec');
+require('../src/popover/test/popover.spec');

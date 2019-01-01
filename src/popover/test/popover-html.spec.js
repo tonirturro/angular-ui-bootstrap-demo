@@ -6,10 +6,10 @@ describe('popover', function() {
       tooltipScope;
 
   // load the popover code
-  beforeEach(module('ui.bootstrap.popover'));
+  beforeEach(angular.mock.module('ui.bootstrap.popover'));
 
   // load the template
-  beforeEach(module('uib/template/popover/popover-html.html'));
+  beforeEach(angular.mock.module('uib/template/popover/popover-html.html'));
 
   beforeEach(inject(function($rootScope, $compile, $sce, _$document_) {
     $document = _$document_;
@@ -129,7 +129,7 @@ describe('popover', function() {
     tooltipScope.$digest();
     expect(tooltipScope.isOpen).toBe(true);
 
-    expect(elmBody.children().eq(1)).toHaveClass('fade');
+    expect(elmBody.children().get(1)).toHaveClass('fade');
   }));
 
   it('should popup without animate class when animation disabled', inject(function($compile) {
@@ -146,7 +146,7 @@ describe('popover', function() {
     elm.trigger('click');
     tooltipScope.$digest();
     expect(tooltipScope.isOpen).toBe(true);
-    expect(elmBody.children().eq(1)).not.toHaveClass('fade');
+    expect(elmBody.children().get(1)).not.toHaveClass('fade');
   }));
 
   it ('should display the title', inject(function($compile) {
@@ -182,7 +182,7 @@ describe('popover', function() {
         expect(tooltipScope.isOpen).toBe(true);
 
         expect(elmBody.children().length).toBe(2);
-        var ttipElement = elmBody.find('div.popover');
+        var ttipElement = elmBody.find('div.popover')[0];
         expect(ttipElement).toHaveClass('left');
       }));
 
@@ -204,7 +204,7 @@ describe('popover', function() {
         expect(tooltipScope.isOpen).toBe(true);
 
         expect(elmBody.children().length).toBe(2);
-        var ttipElement = elmBody.find('div.popover');
+        var ttipElement = elmBody.find('div.popover')[0];
         expect(ttipElement).toHaveClass('custom');
       }));
     });

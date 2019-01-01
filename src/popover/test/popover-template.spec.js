@@ -7,11 +7,11 @@ describe('popover template', function() {
       $document;
 
   // load the popover code
-  beforeEach(module('ui.bootstrap.popover'));
+  beforeEach(angular.mock.module('ui.bootstrap.popover'));
 
   // load the template
-  beforeEach(module('uib/template/popover/popover.html'));
-  beforeEach(module('uib/template/popover/popover-template.html'));
+  beforeEach(angular.mock.module('uib/template/popover/popover.html'));
+  beforeEach(angular.mock.module('uib/template/popover/popover-template.html'));
 
   beforeEach(inject(function($templateCache) {
     $templateCache.put('myUrl', [200, '<span>{{ myTemplateText }}</span>', {}]);
@@ -122,7 +122,7 @@ describe('popover template', function() {
         expect(tooltipScope.isOpen).toBe(true);
 
         expect(elmBody.children().length).toBe(2);
-        var ttipElement = elmBody.find('div.popover');
+        var ttipElement = elmBody.find('div.popover')[0];
         expect(ttipElement).toHaveClass('left');
       }));
 
@@ -144,7 +144,7 @@ describe('popover template', function() {
         expect(tooltipScope.isOpen).toBe(true);
 
         expect(elmBody.children().length).toBe(2);
-        var ttipElement = elmBody.find('div.popover');
+        var ttipElement = elmBody.find('div.popover')[0];
         expect(ttipElement).toHaveClass('custom');
       }));
     });

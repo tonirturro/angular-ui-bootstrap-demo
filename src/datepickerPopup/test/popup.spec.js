@@ -1343,6 +1343,10 @@ describe('datepicker popup', function() {
   });
 
   describe('with datepicker-popup-template-url', function() {
+    beforeEach(inject(function(_$document_) {
+      $document = _$document_;
+    }));
+
     beforeEach(function() {
       $rootScope.date = new Date();
     });

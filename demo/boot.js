@@ -16,6 +16,7 @@ var DROPDOWN = require('../src/dropdown');
 var MODAL = require('../src/modal');
 var PAGER = require('../src/pager');
 var PAGINATION = require('../src/pagination');
+var POPOVER = require('../src/popover');
 
 var module = angular.module('ui.bootstrap.demo', [ 
     'ngAnimate',
@@ -31,7 +32,8 @@ var module = angular.module('ui.bootstrap.demo', [
     DROPDOWN,
     MODAL,
     PAGER,
-    PAGINATION
+    PAGINATION,
+    POPOVER
  ]).filter('capitalize', function() {
     return function(input) {
       return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
@@ -50,6 +52,7 @@ require('../src/dropdown/docs/demo');
 require('../src/modal/docs/demo');
 require('../src/pager/docs/demo');
 require('../src/pagination/docs/demo');
+require('../src/popover/docs/demo');
 require('./main');
 
 
@@ -94,6 +97,9 @@ module.config(function($routeProvider) {
         .when('/pagination', {
             templateUrl: 'pagination'
         })
+        .when('/popover', {
+            templateUrl: 'popover'
+        })
         .otherwise({
             redirectTo : '/basic'
         });
@@ -113,4 +119,5 @@ module.run(["$templateCache", function($templateCache) {
     $templateCache.put('modal', require('../src/modal/docs/demo.html'));
     $templateCache.put('pager', require('../src/pager/docs/demo.html'));
     $templateCache.put('pagination', require('../src/pagination/docs/demo.html'));
+    $templateCache.put('popover', require('../src/popover/docs/demo.html'));
 }]);
