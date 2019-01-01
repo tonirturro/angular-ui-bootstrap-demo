@@ -1,7 +1,7 @@
 describe('progressbar directive', function() {
   var $rootScope, $compile, element;
-  beforeEach(module('ui.bootstrap.progressbar'));
-  beforeEach(module('uib/template/progressbar/progressbar.html', 'uib/template/progressbar/progress.html', 'uib/template/progressbar/bar.html'));
+  beforeEach(angular.mock.module('ui.bootstrap.progressbar'));
+  beforeEach(angular.mock.module('uib/template/progressbar/progressbar.html', 'uib/template/progressbar/progress.html', 'uib/template/progressbar/bar.html'));
   beforeEach(inject(function(_$compile_, _$rootScope_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;
@@ -17,12 +17,12 @@ describe('progressbar directive', function() {
   }
 
   it('has a "progress" css class', function() {
-    expect(element).toHaveClass('progress');
+    expect(element[0]).toHaveClass('progress');
   });
 
   it('contains one child element with "bar" css class', function() {
     expect(element.children().length).toBe(1);
-    expect(getBar(0)).toHaveClass(BAR_CLASS);
+    expect(getBar(0)[0]).toHaveClass(BAR_CLASS);
   });
 
   it('has a "bar" element with expected width', function() {
@@ -54,10 +54,10 @@ describe('progressbar directive', function() {
     element = $compile('<progress class="progress-striped active" max="200"><bar class="pizza"></bar></progress>')($rootScope);
     $rootScope.$digest();
 
-    expect(element).toHaveClass('progress-striped');
-    expect(element).toHaveClass('active');
+    expect(element[0]).toHaveClass('progress-striped');
+    expect(element[0]).toHaveClass('active');
 
-    expect(getBar(0)).toHaveClass('pizza');
+    expect(getBar(0)[0]).toHaveClass('pizza');
   });
 
   it('adjusts the "bar" width and aria when value changes', function() {
@@ -165,8 +165,8 @@ describe('progressbar directive', function() {
     }));
 
     it('should use correct classes', function() {
-      expect(getBar(0)).toHaveClass(BAR_CLASS);
-      expect(getBar(0)).toHaveClass(BAR_CLASS + '-success');
+      expect(getBar(0)[0]).toHaveClass(BAR_CLASS);
+      expect(getBar(0)[0]).toHaveClass(BAR_CLASS + '-success');
     });
 
     it('should change classes if type changed', function() {
@@ -174,7 +174,7 @@ describe('progressbar directive', function() {
       $rootScope.value += 1;
       $rootScope.$digest();
 
-      var barEl = getBar(0);
+      var barEl = getBar(0)[0];
       expect(barEl).toHaveClass(BAR_CLASS);
       expect(barEl).not.toHaveClass(BAR_CLASS + '-success');
       expect(barEl).toHaveClass(BAR_CLASS + '-warning');
@@ -195,7 +195,7 @@ describe('progressbar directive', function() {
     it('contains the right number of bars', function() {
       expect(element.children().length).toBe(3);
       for (var i = 0; i < 3; i++) {
-        expect(getBar(i)).toHaveClass(BAR_CLASS);
+        expect(getBar(i)[0]).toHaveClass(BAR_CLASS);
       }
     });
 
@@ -206,14 +206,14 @@ describe('progressbar directive', function() {
     });
 
     it('uses correct classes', function() {
-      expect(getBar(0)).toHaveClass(BAR_CLASS + '-success');
-      expect(getBar(0)).not.toHaveClass(BAR_CLASS + '-warning');
+      expect(getBar(0)[0]).toHaveClass(BAR_CLASS + '-success');
+      expect(getBar(0)[0]).not.toHaveClass(BAR_CLASS + '-warning');
 
-      expect(getBar(1)).not.toHaveClass(BAR_CLASS + '-success');
-      expect(getBar(1)).toHaveClass(BAR_CLASS + '-warning');
+      expect(getBar(1)[0]).not.toHaveClass(BAR_CLASS + '-success');
+      expect(getBar(1)[0]).toHaveClass(BAR_CLASS + '-warning');
 
-      expect(getBar(2)).not.toHaveClass(BAR_CLASS + '-success');
-      expect(getBar(2)).not.toHaveClass(BAR_CLASS + '-warning');
+      expect(getBar(2)[0]).not.toHaveClass(BAR_CLASS + '-success');
+      expect(getBar(2)[0]).not.toHaveClass(BAR_CLASS + '-warning');
     });
 
     it('should change classes if type changed', function() {
@@ -224,15 +224,15 @@ describe('progressbar directive', function() {
       ];
       $rootScope.$digest();
 
-      expect(getBar(0)).not.toHaveClass(BAR_CLASS + '-success');
-      expect(getBar(0)).toHaveClass(BAR_CLASS + '-warning');
+      expect(getBar(0)[0]).not.toHaveClass(BAR_CLASS + '-success');
+      expect(getBar(0)[0]).toHaveClass(BAR_CLASS + '-warning');
 
-      expect(getBar(1)).not.toHaveClass(BAR_CLASS + '-success');
-      expect(getBar(1)).not.toHaveClass(BAR_CLASS + '-warning');
+      expect(getBar(1)[0]).not.toHaveClass(BAR_CLASS + '-success');
+      expect(getBar(1)[0]).not.toHaveClass(BAR_CLASS + '-warning');
 
-      expect(getBar(2)).toHaveClass(BAR_CLASS + '-info');
-      expect(getBar(2)).not.toHaveClass(BAR_CLASS + '-success');
-      expect(getBar(2)).not.toHaveClass(BAR_CLASS + '-warning');
+      expect(getBar(2)[0]).toHaveClass(BAR_CLASS + '-info');
+      expect(getBar(2)[0]).not.toHaveClass(BAR_CLASS + '-success');
+      expect(getBar(2)[0]).not.toHaveClass(BAR_CLASS + '-warning');
     });
 
     it('should change classes if type changed', function() {
@@ -243,9 +243,9 @@ describe('progressbar directive', function() {
 
       expect(element.children().length).toBe(1);
 
-      expect(getBar(0)).toHaveClass(BAR_CLASS + '-info');
-      expect(getBar(0)).not.toHaveClass(BAR_CLASS + '-success');
-      expect(getBar(0)).not.toHaveClass(BAR_CLASS + '-warning');
+      expect(getBar(0)[0]).toHaveClass(BAR_CLASS + '-info');
+      expect(getBar(0)[0]).not.toHaveClass(BAR_CLASS + '-success');
+      expect(getBar(0)[0]).not.toHaveClass(BAR_CLASS + '-warning');
     });
 
     it('should have the correct aria markup', function() {
