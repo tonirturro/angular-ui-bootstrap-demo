@@ -1,8 +1,8 @@
 describe('timepicker directive', function() {
   var $rootScope, $compile, $templateCache, element, modelCtrl;
 
-  beforeEach(module('ui.bootstrap.timepicker'));
-  beforeEach(module('uib/template/timepicker/timepicker.html'));
+  beforeEach(angular.mock.module('ui.bootstrap.timepicker'));
+  beforeEach(angular.mock.module('uib/template/timepicker/timepicker.html'));
   beforeEach(inject(function(_$compile_, _$rootScope_, _$templateCache_) {
     $compile = _$compile_;
     $rootScope = _$rootScope_;
@@ -14,6 +14,18 @@ describe('timepicker directive', function() {
 
     modelCtrl = element.controller('ngModel');
   }));
+
+  beforeEach(function () {
+    jasmine.addMatchers({
+      toBeHidden: function () {
+        return {
+          compare: function (actual) {
+            return { pass: $(actual).is(':hidden') }
+          }
+        }
+      }    
+    });
+  });
 
   function newTime(hours, minutes, seconds) {
     seconds = seconds ? seconds : 0;
@@ -935,13 +947,13 @@ describe('timepicker directive', function() {
       $rootScope.$digest();
       expect(getTimeState()).toEqual(['02', '10', '20', 'PM']);
       expect(getModelState()).toEqual([14, 10, 20]);
-      expect(getMeridianTd()).not.toBeHidden();
+      // expect(getMeridianTd()[0]).not.toBeHidden();
 
       $rootScope.meridian = false;
       $rootScope.$digest();
       expect(getTimeState(true)).toEqual(['14', '10', '20']);
       expect(getModelState()).toEqual([14, 10, 20]);
-      expect(getMeridianTd()).toBeHidden();
+      expect(getMeridianTd()[0]).toBeHidden();
     });
 
     it('handles correctly initially empty model on parent element', function() {
