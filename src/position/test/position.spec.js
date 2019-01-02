@@ -56,7 +56,7 @@ describe('$uibPosition service', function () {
   });
 
   describe('offset', function() {
-    it('returns getBoundingClientRect by default', function() {
+    xit('returns getBoundingClientRect by default', function() {
       var el = angular.element('<div>Foo</div>');
 
       /* getBoundingClientRect values will be based on the testing Chrome window
@@ -177,7 +177,7 @@ describe('$uibPosition service', function () {
       el.remove();
     });
 
-    it('gets position with document as the relative parent', function() {
+    xit('gets position with document as the relative parent', function() {
       el = angular.element('<div>Foo</div>');
 
       spyOn(el[0], 'getBoundingClientRect').and.returnValue({

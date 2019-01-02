@@ -2,7 +2,7 @@ describe('typeaheadHighlight', function () {
 
   var highlightFilter, $log, $sce, logSpy;
 
-  beforeEach(module('ui.bootstrap.typeahead'));
+  beforeEach(angular.mock.module('ui.bootstrap.typeahead'));
 
   beforeEach(inject(function(_$log_, _$sce_) {
     $log = _$log_;

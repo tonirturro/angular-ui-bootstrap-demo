@@ -1,7 +1,7 @@
 describe('Security concerns', function() {
   var highlightFilter, $sanitize, logSpy;
 
-  beforeEach(module('ui.bootstrap.typeahead', 'ngSanitize'));
+  beforeEach(angular.mock.module('ui.bootstrap.typeahead', 'ngSanitize'));
 
   beforeEach(inject(function (uibTypeaheadHighlightFilter, _$sanitize_, $log) {
     highlightFilter = uibTypeaheadHighlightFilter;

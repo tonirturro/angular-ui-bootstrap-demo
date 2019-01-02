@@ -1,7 +1,7 @@
 describe('syntax parser', function() {
   var typeaheadParser, scope, filterFilter;
 
-  beforeEach(module('ui.bootstrap.typeahead'));
+  beforeEach(angular.mock.module('ui.bootstrap.typeahead'));
   beforeEach(inject(function(_$rootScope_, _filterFilter_, uibTypeaheadParser) {
     typeaheadParser = uibTypeaheadParser;
     scope = _$rootScope_;

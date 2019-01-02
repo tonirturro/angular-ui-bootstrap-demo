@@ -4,6 +4,9 @@ require('../demo/boot');
 // Load the mocks
 require('angular-mocks');
 
+// Load the sanitizer
+require('angular-sanitize');
+
 // Load the tests
 require('../src/accordion/test/accordion.spec');
 require('../src/alert/test/alert.spec');
@@ -29,3 +32,8 @@ require('../src/timepicker/test/timepicker.spec');
 require('../src/tooltip/test/tooltip-template.spec');
 require('../src/tooltip/test/tooltip.spec');
 require('../src/tooltip/test/tooltip2.spec');
+require('../src/typeahead/test/typeahead-highlight-ngsanitize.spec');
+require('../src/typeahead/test/typeahead-highlight.spec');
+require('../src/typeahead/test/typeahead-parser.spec');
+require('../src/typeahead/test/typeahead-popup.spec');
+require('../src/typeahead/test/typeahead.spec');

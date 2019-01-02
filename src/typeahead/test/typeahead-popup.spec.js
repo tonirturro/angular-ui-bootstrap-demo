@@ -1,9 +1,9 @@
 describe('typeaheadPopup - result rendering', function() {
   var scope, $rootScope, $compile;
 
-  beforeEach(module('ui.bootstrap.typeahead'));
-  beforeEach(module('uib/template/typeahead/typeahead-popup.html'));
-  beforeEach(module('uib/template/typeahead/typeahead-match.html'));
+  beforeEach(angular.mock.module('ui.bootstrap.typeahead'));
+  beforeEach(angular.mock.module('uib/template/typeahead/typeahead-popup.html'));
+  beforeEach(angular.mock.module('uib/template/typeahead/typeahead-match.html'));
   beforeEach(inject(function(_$rootScope_, _$compile_) {
     $rootScope = _$rootScope_;
     scope = $rootScope.$new();
@@ -19,9 +19,9 @@ describe('typeaheadPopup - result rendering', function() {
 
     var liElems = el.find('li');
     expect(liElems.length).toEqual(3);
-    expect(liElems.eq(0)).not.toHaveClass('active');
-    expect(liElems.eq(1)).toHaveClass('active');
-    expect(liElems.eq(2)).not.toHaveClass('active');
+    expect(liElems.get(0)).not.toHaveClass('active');
+    expect(liElems.get(1)).toHaveClass('active');
+    expect(liElems.get(2)).not.toHaveClass('active');
   });
 
   it('should change active item on mouseenter', function() {
@@ -32,13 +32,13 @@ describe('typeaheadPopup - result rendering', function() {
     $rootScope.$digest();
 
     var liElems = el.find('li');
-    expect(liElems.eq(1)).toHaveClass('active');
-    expect(liElems.eq(2)).not.toHaveClass('active');
+    expect(liElems.get(1)).toHaveClass('active');
+    expect(liElems.get(2)).not.toHaveClass('active');
 
     liElems.eq(2).trigger('mouseenter');
 
-    expect(liElems.eq(1)).not.toHaveClass('active');
-    expect(liElems.eq(2)).toHaveClass('active');
+    expect(liElems.get(1)).not.toHaveClass('active');
+    expect(liElems.get(2)).toHaveClass('active');
   });
 
   it('should select an item on mouse click', function() {
