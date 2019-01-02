@@ -1,6 +1,6 @@
 describe('tabindex toggle directive', function() {
   var $rootScope, element;
-  beforeEach(module('ui.bootstrap.tabindex'));
+  beforeEach(angular.mock.module('ui.bootstrap.tabindex'));
   beforeEach(inject(function($compile, _$rootScope_) {
     $rootScope = _$rootScope_;
     element = $compile('<a href uib-tabindex-toggle ng-disabled="disabled">foo</a>')($rootScope);

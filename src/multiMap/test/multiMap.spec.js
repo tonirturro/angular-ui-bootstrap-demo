@@ -1,7 +1,7 @@
 describe('multi map', function() {
   var multiMap;
 
-  beforeEach(module('ui.bootstrap.multiMap'));
+  beforeEach(angular.mock.module('ui.bootstrap.multiMap'));
   beforeEach(inject(function($$multiMap) {
     multiMap = $$multiMap.createNew();
   }));

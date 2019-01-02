@@ -1,7 +1,7 @@
 describe('stacked map', function() {
   var stackedMap;
 
-  beforeEach(module('ui.bootstrap.modal'));
+  beforeEach(angular.mock.module('ui.bootstrap.modal'));
   beforeEach(inject(function ($$stackedMap) {
     stackedMap = $$stackedMap.createNew();
   }));

@@ -1,7 +1,7 @@
 describe('uibIsClass', function() {
   var $rootScope;
 
-  beforeEach(module('ui.bootstrap.isClass'));
+  beforeEach(angular.mock.module('ui.bootstrap.isClass'));
   beforeEach(inject(function($compile, _$rootScope_) {
     $rootScope = _$rootScope_;
     $rootScope.activeClass = 'active';

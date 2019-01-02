@@ -1,7 +1,7 @@
 describe('$$debounce', function() {
   var $$debounce, $timeout, debouncedFunction, i, args;
 
-  beforeEach(module('ui.bootstrap.debounce'));
+  beforeEach(angular.mock.module('ui.bootstrap.debounce'));
   beforeEach(inject(function(_$$debounce_, _$timeout_) {
     $$debounce = _$$debounce_;
     $timeout = _$timeout_;

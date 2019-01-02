@@ -1,7 +1,7 @@
 describe('paging factory', function() {
   var $rootScope, $scope, ctrl, attrs;
 
-  beforeEach(module('ui.bootstrap.paging'));
+  beforeEach(angular.mock.module('ui.bootstrap.paging'));
   beforeEach(inject(function(_$rootScope_, uibPaging) {
     $rootScope = _$rootScope_;
     $scope = $rootScope.$new();
