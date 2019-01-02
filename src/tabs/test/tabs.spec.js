@@ -1,9 +1,21 @@
 describe('tabs', function() {
   var elm, scope;
 
-  beforeEach(module('ui.bootstrap.tabs'));
-  beforeEach(module('uib/template/tabs/tabset.html'));
-  beforeEach(module('uib/template/tabs/tab.html'));
+  beforeEach(angular.mock.module('ui.bootstrap.tabs'));
+  beforeEach(angular.mock.module('uib/template/tabs/tabset.html'));
+  beforeEach(angular.mock.module('uib/template/tabs/tab.html'));
+
+  beforeEach(function () {
+    jasmine.addMatchers({
+      toBeHidden: function () {
+        return {
+          compare: function (actual) {
+            return { pass: $(actual).is(':hidden') }
+          }
+        }
+      }    
+    });
+  });
 
   function titles() {
     return elm.find('ul.nav-tabs li');
@@ -64,11 +76,11 @@ describe('tabs', function() {
     }));
 
     it('should pass class and other attributes on to tab template', function() {
-      expect(elm).toHaveClass('hello');
+      expect(elm[0]).toHaveClass('hello');
       expect(elm.attr('data-pizza')).toBe('pepperoni');
       //Ensure that we have bootstrap 4 link class so things are future proofed.
       var link = $(elm.find('a')[0]);
-      expect(link).toHaveClass('nav-link');
+      expect(link[0]).toHaveClass('nav-link');
     });
 
     it('should create clickable titles', function() {
@@ -82,25 +94,25 @@ describe('tabs', function() {
 
     it('should bind tabs content and set first tab active', function() {
       expectContents(['first content is 1', 'second content is 2', 'third content is 3']);
-      expect(titles().eq(0)).toHaveClass('active');
-      expect(titles().eq(1)).not.toHaveClass('active');
+      expect(titles().get(0)).toHaveClass('active');
+      expect(titles().get(1)).not.toHaveClass('active');
       expect(scope.active).toBe(1);
     });
 
     it('should set optional classes on each tab', function() {
-      expect(titles().eq(0)).toHaveClass(scope.firstClass);
+      expect(titles().get(0)).toHaveClass(scope.firstClass);
 
       var secondClassArr = scope.secondClass.split(' ');
       secondClassArr.forEach(function(clazz) {
-        expect(titles().eq(1)).toHaveClass(clazz);
+        expect(titles().get(1)).toHaveClass(clazz);
       });
     });
 
     it('should change active on click', function() {
       titles().eq(1).find('> a').click();
-      expect(contents().eq(1)).toHaveClass('active');
-      expect(titles().eq(0)).not.toHaveClass('active');
-      expect(titles().eq(1)).toHaveClass('active');
+      expect(contents().get(1)).toHaveClass('active');
+      expect(titles().get(0)).not.toHaveClass('active');
+      expect(titles().get(1)).toHaveClass('active');
       expect(scope.active).toBe(2);
     });
 
@@ -176,11 +188,11 @@ describe('tabs', function() {
           expect(scope.active).toBe(tab.index);
           //It should only call select ONCE for each select
           expect(tab.select).toHaveBeenCalled();
-          expect(_titles.eq(i)).toHaveClass('active');
-          expect(contents().eq(i)).toHaveClass('active');
+          expect(_titles.get(i)).toHaveClass('active');
+          expect(contents().get(i)).toHaveClass('active');
         } else {
           expect(scope.active).not.toBe(tab.index);
-          expect(_titles.eq(i)).not.toHaveClass('active');
+          expect(_titles.get(i)).not.toHaveClass('active');
         }
       });
     }
@@ -212,16 +224,16 @@ describe('tabs', function() {
 
     it('should bind tabs content and set first tab active', function() {
       expectContents(['first content is 1', 'second content is 2']);
-      expect(titles().eq(0)).toHaveClass('active');
-      expect(titles().eq(1)).not.toHaveClass('active');
+      expect(titles().get(0)).toHaveClass('active');
+      expect(titles().get(1)).not.toHaveClass('active');
       expect(elm.controller('uibTabset').active).toBe(0);
     });
 
     it('should change active on click', function() {
       titles().eq(1).find('> a').click();
-      expect(contents().eq(1)).toHaveClass('active');
-      expect(titles().eq(0)).not.toHaveClass('active');
-      expect(titles().eq(1)).toHaveClass('active');
+      expect(contents().get(1)).toHaveClass('active');
+      expect(titles().get(0)).not.toHaveClass('active');
+      expect(titles().get(1)).toHaveClass('active');
       expect(elm.controller('uibTabset').active).toBe(1);
     });
   });
@@ -247,16 +259,16 @@ describe('tabs', function() {
     }));
 
     it('should set second tab active', function() {
-      expect(titles().eq(0)).not.toHaveClass('active');
-      expect(titles().eq(1)).toHaveClass('active');
+      expect(titles().get(0)).not.toHaveClass('active');
+      expect(titles().get(1)).toHaveClass('active');
       expect(elm.controller('uibTabset').active).toBe('two');
     });
 
     it('should change active on click', function() {
-      expect(titles().eq(0)).not.toHaveClass('active');
+      expect(titles().get(0)).not.toHaveClass('active');
       titles().eq(0).find('> a').click();
-      expect(titles().eq(0)).toHaveClass('active');
-      expect(titles().eq(1)).not.toHaveClass('active');
+      expect(titles().get(0)).toHaveClass('active');
+      expect(titles().get(1)).not.toHaveClass('active');
       expect(elm.controller('uibTabset').active).toBe('one');
     });
   });
@@ -401,12 +413,12 @@ describe('tabs', function() {
           expect(scope.active).toBe(tab.index);
           //It should only call select ONCE for each select
           expect(tab.select).toHaveBeenCalled();
-          expect(_titles.eq(i)).toHaveClass('active');
+          expect(_titles.get(i)).toHaveClass('active');
           expect(contents().eq(i).text().trim()).toBe('content ' + i);
-          expect(contents().eq(i)).toHaveClass('active');
+          expect(contents().get(i)).toHaveClass('active');
         } else {
           expect(scope.active).not.toBe(tab.index);
-          expect(_titles.eq(i)).not.toHaveClass('active');
+          expect(_titles.get(i)).not.toHaveClass('active');
         }
       });
     }
@@ -491,12 +503,12 @@ describe('tabs', function() {
       expect(heading().eq(0).html()).toBe('<b>hello</b>, there!');
     });
 
-    it('should hide and show the heading depending on value', function() {
-      expect(heading().eq(0)).not.toBeHidden();
+    xit('should hide and show the heading depending on value', function() {
+      expect(heading().get(0)).not.toBeHidden();
       scope.$apply('value = false');
-      expect(heading().eq(0)).toBeHidden();
+      expect(heading().get(0)).toBeHidden();
       scope.$apply('value = true');
-      expect(heading().eq(0)).not.toBeHidden();
+      expect(heading().get(0)).not.toBeHidden();
     });
 
     it('should have a uib-tab-heading no matter what syntax was used', function() {
@@ -699,8 +711,8 @@ describe('tabs', function() {
 
       // Select last tab
       titles().find('> a').eq(3).click();
-      expect(contents().eq(3)).toHaveClass('active');
-      expect(titles().eq(3)).toHaveClass('active');
+      expect(contents().get(3)).toHaveClass('active');
+      expect(titles().get(3)).toHaveClass('active');
 
       // Remove last tab
       scope.$apply('list = [1,2]');
@@ -708,13 +720,13 @@ describe('tabs', function() {
       expectContents(['Hello', 'content 1', 'content 2']);
 
       // "tab 2" is now selected
-      expect(titles().eq(2)).toHaveClass('active');
-      expect(contents().eq(2)).toHaveClass('active');
+      expect(titles().get(2)).toHaveClass('active');
+      expect(contents().get(2)).toHaveClass('active');
 
       // Select 2nd tab ("tab 1")
       titles().find('> a').eq(1).click();
-      expect(titles().eq(1)).toHaveClass('active');
-      expect(contents().eq(1)).toHaveClass('active');
+      expect(titles().get(1)).toHaveClass('active');
+      expect(contents().get(1)).toHaveClass('active');
 
       // Remove 2nd tab
       scope.$apply('list = [2]');
@@ -722,8 +734,8 @@ describe('tabs', function() {
       expectContents(['Hello', 'content 2']);
 
       // New 2nd tab is now selected
-      expect(titles().eq(1)).toHaveClass('active');
-      expect(contents().eq(1)).toHaveClass('active');
+      expect(titles().get(1)).toHaveClass('active');
+      expect(contents().get(1)).toHaveClass('active');
     }));
 
     it('should use updated index in tab', inject(function($controller, $compile, $rootScope) {
@@ -747,8 +759,8 @@ describe('tabs', function() {
 
       // Select first tab
       titles().find('> a').eq(0).click();
-      expect(titles().eq(0)).toHaveClass('active');
-      expect(contents().eq(0)).toHaveClass('active');
+      expect(titles().get(0)).toHaveClass('active');
+      expect(contents().get(0)).toHaveClass('active');
     }));
 
     it('should not select tabs when being destroyed', inject(function($controller, $compile, $rootScope) {
@@ -824,12 +836,12 @@ describe('tabs', function() {
         if (activeTab === tab) {
           expect(scope.active).toBe(tab.index);
           expect(tab.select.calls.count()).toBe(tab.disable ? 0 : 1);
-          expect(_titles.eq(i)).toHaveClass('active');
+          expect(_titles.get(i)).toHaveClass('active');
           expect(contents().eq(i).text().trim()).toBe('content ' + i);
-          expect(contents().eq(i)).toHaveClass('active');
+          expect(contents().get(i)).toHaveClass('active');
         } else {
           expect(scope.active).not.toBe(tab.index);
-          expect(_titles.eq(i)).not.toHaveClass('active');
+          expect(_titles.get(i)).not.toHaveClass('active');
         }
       });
     }
@@ -843,13 +855,13 @@ describe('tabs', function() {
     });
 
     it('should toggle between states', function() {
-      expect(titles().eq(3)).toHaveClass('disabled');
+      expect(titles().get(3)).toHaveClass('disabled');
       scope.$apply('tabs[3].disable = false');
-      expect(titles().eq(3)).not.toHaveClass('disabled');
+      expect(titles().get(3)).not.toHaveClass('disabled');
 
-      expect(titles().eq(2)).not.toHaveClass('disabled');
+      expect(titles().get(2)).not.toHaveClass('disabled');
       scope.$apply('tabs[2].disable = true');
-      expect(titles().eq(2)).toHaveClass('disabled');
+      expect(titles().get(2)).toHaveClass('disabled');
     });
   });
 
@@ -862,7 +874,7 @@ describe('tabs', function() {
     }));
 
     it('to stack tabs', function() {
-      expect(elm.find('ul.nav-tabs')).toHaveClass('nav-stacked');
+      expect(elm.find('ul.nav-tabs')[0]).toHaveClass('nav-stacked');
     });
   });
 
@@ -875,7 +887,7 @@ describe('tabs', function() {
       }));
 
       it('to justify tabs', function() {
-          expect(elm.find('ul.nav-tabs')).toHaveClass('nav-justified');
+          expect(elm.find('ul.nav-tabs')[0]).toHaveClass('nav-justified');
       });
   });
 
@@ -889,8 +901,8 @@ describe('tabs', function() {
     }));
 
     it('to show pills', function() {
-      expect(elm.find('ul')).toHaveClass('nav-pills');
-      expect(elm.find('ul')).not.toHaveClass('nav-tabs');
+      expect(elm.find('ul')[0]).toHaveClass('nav-pills');
+      expect(elm.find('ul')[0]).not.toHaveClass('nav-tabs');
     });
   });
 
