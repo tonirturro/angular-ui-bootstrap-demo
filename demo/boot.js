@@ -22,6 +22,7 @@ var PROGRESSBAR = require('../src/progressbar');
 var RATING = require('../src/rating');
 var TABS = require('../src/tabs');
 var TIMEPICKER = require('../src/timepicker');
+var TOOLTIP = require('../src/tooltip');
 
 var module = angular.module('ui.bootstrap.demo', [ 
     'ngAnimate',
@@ -43,7 +44,8 @@ var module = angular.module('ui.bootstrap.demo', [
     PROGRESSBAR,
     RATING,
     TABS,
-    TIMEPICKER
+    TIMEPICKER,
+    TOOLTIP
  ]).filter('capitalize', function() {
     return function(input) {
       return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
@@ -68,6 +70,7 @@ require('../src/progressbar/docs/demo');
 require('../src/rating/docs/demo');
 require('../src/tabs/docs/demo');
 require('../src/timepicker/docs/demo');
+require('../src/tooltip/docs/demo');
 require('./main');
 
 
@@ -130,6 +133,9 @@ module.config(function($routeProvider) {
         .when('/timepicker', {
             templateUrl: 'timepicker'
         })
+        .when('/tooltip', {
+            templateUrl: 'tooltip'
+        })
         .otherwise({
             redirectTo : '/basic'
         });
@@ -155,4 +161,5 @@ module.run(["$templateCache", function($templateCache) {
     $templateCache.put('rating', require('../src/rating/docs/demo.html'));
     $templateCache.put('tabs', require('../src/tabs/docs/demo.html'));
     $templateCache.put('timepicker', require('../src/timepicker/docs/demo.html'));
+    $templateCache.put('tooltip', require('../src/tooltip/docs/demo.html'));
 }]);

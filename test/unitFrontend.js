@@ -26,3 +26,6 @@ require('../src/progressbar/test/progressbar.spec');
 require('../src/rating/test/rating.spec');
 require('../src/tabs/test/tabs.spec');
 require('../src/timepicker/test/timepicker.spec');
+require('../src/tooltip/test/tooltip-template.spec');
+require('../src/tooltip/test/tooltip.spec');
+require('../src/tooltip/test/tooltip2.spec');

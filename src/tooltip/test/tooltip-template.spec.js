@@ -7,10 +7,10 @@ describe('tooltip template', function() {
       $document;
 
   // load the popover code
-  beforeEach(module('ui.bootstrap.tooltip'));
+  beforeEach(angular.mock.module('ui.bootstrap.tooltip'));
 
   // load the template
-  beforeEach(module('uib/template/tooltip/tooltip-template-popup.html'));
+  beforeEach(angular.mock.module('uib/template/tooltip/tooltip-template-popup.html'));
 
   beforeEach(inject(function($templateCache) {
     $templateCache.put('myUrl', [200, '<span>{{ myTemplateText }}</span>', {}]);

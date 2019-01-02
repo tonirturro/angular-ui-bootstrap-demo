@@ -1,10 +1,10 @@
 describe('tooltip directive', function() {
   var $rootScope, $compile, $document, $timeout, body, fragment;
 
-  beforeEach(module('ui.bootstrap.tooltip'));
-  beforeEach(module('uib/template/tooltip/tooltip-popup.html'));
-  beforeEach(module('uib/template/tooltip/tooltip-template-popup.html'));
-  beforeEach(module('uib/template/tooltip/tooltip-html-popup.html'));
+  beforeEach(angular.mock.module('ui.bootstrap.tooltip'));
+  beforeEach(angular.mock.module('uib/template/tooltip/tooltip-popup.html'));
+  beforeEach(angular.mock.module('uib/template/tooltip/tooltip-template-popup.html'));
+  beforeEach(angular.mock.module('uib/template/tooltip/tooltip-html-popup.html'));
   beforeEach(inject(function(_$rootScope_, _$compile_, _$document_, _$timeout_) {
     $rootScope = _$rootScope_;
     $compile = _$compile_;
@@ -128,7 +128,7 @@ describe('tooltip directive', function() {
 
             var ttipElement = fragment.find('div.tooltip');
             expect(fragment).toHaveOpenTooltips();
-            expect(ttipElement).toHaveClass('left');
+            expect(ttipElement[0]).toHaveClass('left');
 
             closeTooltip(fragment.find('span'));
             expect(fragment).not.toHaveOpenTooltips();
@@ -142,7 +142,7 @@ describe('tooltip directive', function() {
 
             var ttipElement = fragment.find('div.tooltip');
             expect(fragment).toHaveOpenTooltips();
-            expect(ttipElement).toHaveClass('custom');
+            expect(ttipElement[0]).toHaveClass('custom');
 
             closeTooltip(fragment.find('span'));
             expect(fragment).not.toHaveOpenTooltips();
