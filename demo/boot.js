@@ -19,6 +19,7 @@ var PAGINATION = require('../src/pagination');
 var POPOVER = require('../src/popover');
 var POSITION = require('../src/position');
 var PROGRESSBAR = require('../src/progressbar');
+var RATING = require('../src/rating');
 
 var module = angular.module('ui.bootstrap.demo', [ 
     'ngAnimate',
@@ -37,7 +38,8 @@ var module = angular.module('ui.bootstrap.demo', [
     PAGINATION,
     POPOVER,
     POSITION,
-    PROGRESSBAR
+    PROGRESSBAR,
+    RATING
  ]).filter('capitalize', function() {
     return function(input) {
       return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
@@ -59,6 +61,7 @@ require('../src/pagination/docs/demo');
 require('../src/popover/docs/demo');
 require('../src/position/docs/demo');
 require('../src/progressbar/docs/demo');
+require('../src/rating/docs/demo');
 require('./main');
 
 
@@ -112,6 +115,9 @@ module.config(function($routeProvider) {
         .when('/progressbar', {
             templateUrl: 'progressbar'
         })
+        .when('/rating', {
+            templateUrl: 'rating'
+        })
         .otherwise({
             redirectTo : '/basic'
         });
@@ -134,4 +140,5 @@ module.run(["$templateCache", function($templateCache) {
     $templateCache.put('popover', require('../src/popover/docs/demo.html'));
     $templateCache.put('position', require('../src/position/docs/demo.html'));
     $templateCache.put('progressbar', require('../src/progressbar/docs/demo.html'));
+    $templateCache.put('rating', require('../src/rating/docs/demo.html'));
 }]);
